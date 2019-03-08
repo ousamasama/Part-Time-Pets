@@ -79,7 +79,7 @@ def login_user(request):
         else:
             # Bad login details were provided. So we can't log the user in.
             print("Invalid login details: {}, {}".format(username, password))
-            return HttpResponse("Invalid login details supplied.")
+            return render(request, 'invalid_login.html', context)
 
 
     return render(request, 'login.html', context)
