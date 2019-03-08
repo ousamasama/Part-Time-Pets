@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>All Dogs</h1>
+
+    <ul>
+        {% for dog in dogs %}
+            <li>{{ dog.name }} - {{ dog.owner|title }}</li>
+        {% endfor %}
+    </ul>
+    
+{% endblock content %}

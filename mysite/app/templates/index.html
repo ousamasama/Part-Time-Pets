@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block content %}
+    <h1>Welcome to Part Time Pets{% if user.is_authenticated %}, {{ user.first_name }}!
+        {%else %}!
+    </h1>
+    {% endif %}
+
+{% endblock content %}
