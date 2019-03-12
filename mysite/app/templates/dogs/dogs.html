@@ -1,12 +1,25 @@
 {% extends 'base.html' %}
 
+{% load static %}
 {% block content %}
-    <h1>All Dogs</h1>
+<h1>Dogs For Rent</h1>
 
-    <ul>
-        {% for dog in dogs %}
-            <li>{{ dog.name }} - {{ dog.owner|title }}</li>
-        {% endfor %}
-    </ul>
-    
+<ul>
+    {% for dog in dogs %}
+    {% if dog.is_available == True and dog.owner_id != user.id %}
+    <img src="{{ dog.image.url }}" height="150" width="150">
+    <li>{{ dog.name }} - {{ dog.owner|title }}</li>
+    {% endif %}
+    {% endfor %}
+</ul>
+<h1>Dogs Out For Rent</h1>
+<ul>
+    {% for dog in dogs %}
+    {% if dog.is_available == False and dog.owner_id != user.id %}
+    <img class="dog-pic" src="{{ dog.image.url }}">
+    <li>{{ dog.name }} - {{ dog.owner|title }}</li>
+    {% endif %}
+    {% endfor %}
+</ul>
+
 {% endblock content %}
