@@ -6,8 +6,9 @@ from django.template import RequestContext
 from app.forms import *
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.urls import reverse
-from app.models import Dog
+from app.models import Dog, User, DogRental
 from datetime import datetime
+from django.db import connection
 # Create your views here.
 
 def index(request):
@@ -96,7 +97,9 @@ def user_logout(request):
 
 def dogs(request):
     dogs = Dog.objects.all()
-    context = {'dogs': dogs}
+    dogrental = DogRental.objects.all()
+    print("dog rental", dogrental)
+    context = {'dogs': dogs, 'dogrental': dogrental}
     template_name = 'dogs/dogs.html'
     return render(request, template_name, context)
 
@@ -119,4 +122,23 @@ def add_dog(request):
         else:
             print("error")
 
+@login_required
+def rent_dog(request, dog_id):
+    currentuser = request.user
+    dog_to_rent = Dog.objects.get(id = dog_id)
+    dog_to_rent.is_available = False
+    dog_to_rent.save()
 
+    DogRental.objects.create(renter = currentuser, dog = dog_to_rent)
+    return HttpResponseRedirect(reverse('app:dogs'))
+
+@login_required
+def return_dog(request, dog_id):
+    currentuser = request.user
+    dog_to_rent = Dog.objects.get(id = dog_id)
+    rented_dog = DogRental.objects.get(renter = currentuser, dog = dog_to_rent)
+    dog_to_rent.is_available = True
+    dog_to_rent.save()
+    
+    rented_dog.delete()
+    return HttpResponseRedirect(reverse('app:dogs'))
