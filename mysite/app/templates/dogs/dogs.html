@@ -2,24 +2,46 @@
 
 {% load static %}
 {% block content %}
+<html>
+<link rel="stylesheet" href="{% static 'index.css' %}" />
+
 <h1>Dogs For Rent</h1>
 
-<ul>
-    {% for dog in dogs %}
-    {% if dog.is_available == True and dog.owner_id != user.id %}
-    <img src="{{ dog.image.url }}" height="150" width="150">
-    <li>{{ dog.name }} - {{ dog.owner|title }}</li>
-    {% endif %}
-    {% endfor %}
-</ul>
-<h1>Dogs Out For Rent</h1>
-<ul>
-    {% for dog in dogs %}
-    {% if dog.is_available == False and dog.owner_id != user.id %}
-    <img class="dog-pic" src="{{ dog.image.url }}">
-    <li>{{ dog.name }} - {{ dog.owner|title }}</li>
-    {% endif %}
-    {% endfor %}
+<ul style="list-style-type:none">
+    <div class="containers">
+        {% for dog in dogs %}
+        {% if dog.is_available == True and dog.owner_id != user.id %}
+        <div class="card">
+            <li>{{ dog.name }} - {{ dog.owner|title }}</li>
+            <img src="{{ dog.image.url }}" height="150" width="150">
+            <button type="submit" name="submit" value="Rent Dog"><a href="{% url 'app:rent_dog' dog.id %}">Rent
+                    Dog</a></button>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
 </ul>
 
+<h1>Dogs Out For Rent</h1>
+
+<ul style="list-style-type:none">
+    <div class="containers">
+        {% for dog in dogs %}
+        {% if dog.is_available == False and dog.owner_id != user.id %}
+        <div class="card">
+            <li>{{ dog.name }} - {{ dog.owner|title }}</li>
+            <img class="dog-pic" src="{{ dog.image.url }}" height="150" width="150">
+            {% for rental in dogrental %}
+            {% if rental.renter_id == user.id and rental.dog_id == dog.id %}
+            <button type="submit" name="submit" value="Return Dog"><a href="{% url 'app:return_dog' dog.id %}">Return
+                    Dog</a></button>
+                    {% endif %}
+                    {% endfor %}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</ul>
+
+</html>
 {% endblock content %}
