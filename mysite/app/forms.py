@@ -16,3 +16,14 @@ class DogForm(forms.ModelForm):
         model = Dog
         fields = ('name', 'breed', 'description', 'image')
         labels = {'breed': 'Breed'}
+
+class DogEditForm(forms.ModelForm):
+  
+  class Meta:
+    model = Dog
+    fields = ('name', 'description', 'image')
+    labels = {
+      'name': 'Name',
+      'description': 'Description',
+      'image': 'Image',
+    }

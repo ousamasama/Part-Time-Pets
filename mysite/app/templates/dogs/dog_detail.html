@@ -4,14 +4,20 @@
 {% block content %}
 <html>
 <link rel="stylesheet" href="{% static 'index.css' %}" />
-
-<h1>{{ dog_detail.name }} - {{ dog_detail.breed }}</h1>
-<img src="{{ dog_detail.image.url }}" height="150" width="150">
-{% if user.is_authenticated and dog_detail.is_available == True %}
-<button type="submit" name="submit" value="Rent Dog"><a href="{% url 'app:rent_dog' dog_detail.id %}">Rent Dog</a></button>
-{% elif dog_detail.is_available == False %}
-<p>This dog is out for rent!</p>
-{% else %}
-<p>Login to rent this dog!</p>
-{% endif %}
+    <div class="containers">
+        <div class="card">
+            <h5>{{ dog_detail.name }}</h5>
+            <h5>{{ dog_detail.breed }}</h5>
+                <img src="{{ dog_detail.image.url }}" height="200" width="200">
+                <br />
+                {% if user.is_authenticated and dog_detail.is_available == True %}
+                <button type="submit" name="submit" value="Rent Dog"><a href="{% url 'app:rent_dog' dog_detail.id %}">Rent Dog</a></button>
+                {% elif dog_detail.is_available == False %}
+                <p>This dog is out for rent!</p>
+                {% else %}
+                <p>Login to rent this dog!</p>
+                {% endif %}
+        </div>
+    </div>
+</html>
 {% endblock content %}

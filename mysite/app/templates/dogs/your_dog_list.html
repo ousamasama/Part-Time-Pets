@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<html>
+<link rel="stylesheet" href="{% static 'index.css' %}" />
+<ul style="list-style-type:none">
+        <div class="containers">
+            {% for dog in your_dogs %}
+            <div class="card">
+                <li>
+                    <h5>{{ dog.name }}</h5>
+                    <h5>{{ dog.breed }}</h5>
+                    <img src="{{ dog.image.url }}" height="200" width="200">
+                    <br />
+                    <button><a href="{% url 'app:edit_dog' dog.id %}">Edit {{ dog.name }}</a></button>
+                </li>
+            </div>
+            {% endfor %}
+        </div>
+    </ul>
+</html>
+{% endblock content %}

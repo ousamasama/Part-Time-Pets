@@ -12,8 +12,11 @@
         {% for dog in dogs %}
         {% if dog.is_available == True and dog.owner_id != user.id %}
         <div class="card">
-            <li><a href="{% url 'app:dog_detail' dog.id %}">{{ dog.name }}</a></li>
-            <img src="{{ dog.image.url }}" height="150" width="150">
+            <li>
+                <a href="{% url 'app:dog_detail' dog.id %}">{{ dog.name }}</a>
+                <br />
+                <img src="{{ dog.image.url }}" height="150" width="150">
+            </li>
         </div>
         {% endif %}
         {% endfor %}
@@ -27,14 +30,18 @@
         {% for dog in dogs %}
         {% if dog.is_available == False and dog.owner_id != user.id %}
         <div class="card">
-            <li><a href="{% url 'app:dog_detail' dog.id %}">{{ dog.name }}</a></li>
-            <img class="dog-pic" src="{{ dog.image.url }}" height="150" width="150">
-            {% for rental in dogrental %}
-            {% if rental.renter_id == user.id and rental.dog_id == dog.id %}
-            <button type="submit" name="submit" value="Return Dog"><a href="{% url 'app:return_dog' dog.id %}">Return
-                    Dog</a></button>
-                    {% endif %}
-                    {% endfor %}
+            <li>
+                <a href="{% url 'app:dog_detail' dog.id %}">{{ dog.name }}</a>
+                <br />
+                <img class="dog-pic" src="{{ dog.image.url }}" height="150" width="150">
+                <br />
+                {% for rental in dogrental %}
+                {% if rental.renter_id == user.id and rental.dog_id == dog.id %}
+                <button type="submit" name="submit" value="Return Dog"><a href="{% url 'app:return_dog' dog.id %}">Return
+                        Dog</a></button>
+                        {% endif %}
+                        {% endfor %}
+            </li>
         </div>
         {% endif %}
         {% endfor %}
