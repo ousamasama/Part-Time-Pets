@@ -98,7 +98,6 @@ def user_logout(request):
 def dogs(request):
     dogs = Dog.objects.all()
     dogrental = DogRental.objects.all()
-    print("dog rental", dogrental)
     context = {'dogs': dogs, 'dogrental': dogrental}
     template_name = 'dogs/dogs.html'
     return render(request, template_name, context)
@@ -142,3 +141,9 @@ def return_dog(request, dog_id):
     
     rented_dog.delete()
     return HttpResponseRedirect(reverse('app:dogs'))
+
+def dog_detail(request, dog_id):
+    dog_detail = get_object_or_404(Dog, id = dog_id)
+    context = {'dog_detail': dog_detail}
+    template_name = 'dogs/dog_detail.html'
+    return render(request, template_name, context)
