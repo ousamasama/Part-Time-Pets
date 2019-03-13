@@ -19,6 +19,9 @@
                 <a class="nav-link" href="{% url 'app:add_dog' %}">Add Dog</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:your_dog_list' user.id %}">Your Dogs</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{% url 'app:logout' %}">Logout</a>
             </li>
         </ul>

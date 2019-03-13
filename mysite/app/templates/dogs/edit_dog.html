@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <form id="edit_dog" method="POST" action="{% url 'app:edit_dog' dog.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ edit_dog.as_p }}
+        <input class="btn btn-dark" type="submit" name="submit" value="Edit Dog" />
+    </form>
+{% endblock content %}

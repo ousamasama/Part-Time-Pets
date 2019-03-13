@@ -147,3 +147,28 @@ def dog_detail(request, dog_id):
     context = {'dog_detail': dog_detail}
     template_name = 'dogs/dog_detail.html'
     return render(request, template_name, context)
+
+@login_required
+def your_dog_list(request, user_id):
+    currentuser = request.user
+    your_dogs = Dog.objects.filter(owner_id = currentuser.id)
+    context = {'your_dogs': your_dogs}
+    template_name = 'dogs/your_dog_list.html'
+    return render(request, template_name, context)
+
+@login_required
+def edit_dog(request, dog_id):
+    dog = get_object_or_404(Dog, id=dog_id)
+    currentuser = request.user
+    if request.method == 'POST':
+        #POST data submitted; process data.
+        form = DogEditForm(instance=dog, data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save() 
+        return HttpResponseRedirect(reverse('app:your_dog_list', args=[currentuser.id]))
+  
+    elif request.method == 'GET':
+        edit_dog = DogEditForm(instance=dog)
+        template_name = 'dogs/edit_dog.html'
+        context = {'edit_dog': edit_dog, 'dog': dog}
+        return render(request, template_name, context)
