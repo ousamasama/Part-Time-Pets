@@ -12,10 +12,8 @@
         {% for dog in dogs %}
         {% if dog.is_available == True and dog.owner_id != user.id %}
         <div class="card">
-            <li>{{ dog.name }} - {{ dog.owner|title }}</li>
+            <li><a href="{% url 'app:dog_detail' dog.id %}">{{ dog.name }}</a></li>
             <img src="{{ dog.image.url }}" height="150" width="150">
-            <button type="submit" name="submit" value="Rent Dog"><a href="{% url 'app:rent_dog' dog.id %}">Rent
-                    Dog</a></button>
         </div>
         {% endif %}
         {% endfor %}
@@ -29,7 +27,7 @@
         {% for dog in dogs %}
         {% if dog.is_available == False and dog.owner_id != user.id %}
         <div class="card">
-            <li>{{ dog.name }} - {{ dog.owner|title }}</li>
+            <li><a href="{% url 'app:dog_detail' dog.id %}">{{ dog.name }}</a></li>
             <img class="dog-pic" src="{{ dog.image.url }}" height="150" width="150">
             {% for rental in dogrental %}
             {% if rental.renter_id == user.id and rental.dog_id == dog.id %}

@@ -12,4 +12,5 @@ urlpatterns = [
     path('invalid_login', views.login_user, name='invalid_login'),
     path('rent_dog/<int:dog_id>', views.rent_dog, name='rent_dog'),
     path('return_dog/<int:dog_id>', views.return_dog, name='return_dog'),
+    path('dog_detail/<int:dog_id>', views.dog_detail, name='dog_detail'),
 ]
