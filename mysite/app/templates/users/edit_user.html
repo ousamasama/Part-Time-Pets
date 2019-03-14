@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <form id="edit_user" method="POST" action="{% url 'app:edit_user' user.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ edit_user.as_p }}
+        <input class="btn btn-dark" type="submit" name="submit" value="Edit User" />
+    </form>
+{% endblock content %}

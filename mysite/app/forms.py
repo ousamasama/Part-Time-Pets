@@ -27,3 +27,15 @@ class DogEditForm(forms.ModelForm):
       'description': 'Description',
       'image': 'Image',
     }
+
+class UserEditForm(forms.ModelForm):
+  
+  class Meta:
+    model = User
+    fields = ('username', 'email', 'first_name', 'last_name')
+    labels = {
+      'username': 'Username',
+      'first_name': 'First Name',
+      'last_name': 'Last Name',
+      'email': 'Email'
+    }

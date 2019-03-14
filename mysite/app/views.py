@@ -161,7 +161,6 @@ def edit_dog(request, dog_id):
     dog = get_object_or_404(Dog, id=dog_id)
     currentuser = request.user
     if request.method == 'POST':
-        #POST data submitted; process data.
         form = DogEditForm(instance=dog, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save() 
@@ -171,4 +170,29 @@ def edit_dog(request, dog_id):
         edit_dog = DogEditForm(instance=dog)
         template_name = 'dogs/edit_dog.html'
         context = {'edit_dog': edit_dog, 'dog': dog}
+        return render(request, template_name, context)
+
+@login_required
+def profile(request, user_id):
+    currentuser = request.user
+    profile = currentuser
+    context = {'profile': profile}
+    template_name = 'users/profile.html'
+    return render(request, template_name, context)
+
+@login_required
+def edit_user(request, user_id):
+    currentuser = request.user
+    user = currentuser
+    print("user", user)
+    if request.method == 'POST':
+        form = UserEditForm(instance=user, data=request.POST)
+        if form.is_valid():
+            form.save() 
+        return HttpResponseRedirect(reverse('app:profile', args=[user.id]))
+  
+    elif request.method == 'GET':
+        edit_user = UserEditForm(instance=user)
+        template_name = 'users/edit_user.html'
+        context = {'edit_user': edit_user, 'user': user}
         return render(request, template_name, context)
