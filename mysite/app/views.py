@@ -9,6 +9,9 @@ from django.urls import reverse
 from app.models import Dog, User, DogRental
 from datetime import datetime
 from django.db import connection
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
+from django.contrib import messages
 # Create your views here.
 
 def index(request):
@@ -196,3 +199,56 @@ def edit_user(request, user_id):
         template_name = 'users/edit_user.html'
         context = {'edit_user': edit_user, 'user': user}
         return render(request, template_name, context)
+
+#thanks brendan
+@login_required
+def change_password(request):
+
+    if request.method == 'GET':
+        user = request.user
+        new_password_form = ChangePassword()
+        context = {'new_password_form': new_password_form}
+        return render(request, 'users/change_password.html', context)
+
+    if request.method == 'POST':
+        user = User.objects.get(pk=request.user.id)
+        old_password = request.POST['old_password']
+        new_password_form = ChangePassword(data=request.POST, instance=user)
+        print("old password", request.POST['old_password'])
+        print("password", request.POST['password'])
+        print("confirm pw", request.POST['confirm_password'])
+        print("request post", request.POST)
+
+        # validate password using installed validators in settings.py
+        try:
+            validate_password(request.POST['password']) == None
+        except ValidationError:
+            # return to form with form instance and message
+            context = {'new_password_form': new_password_form}
+            messages.error(request, "Password change failed. Please try again.")
+            return render(request, 'users/change_password.html', context)
+
+        # verify requesting user's username and old_password match
+        authenticated_user = authenticate(username=user.username, password=old_password)
+        print("authenticated user", authenticated_user)
+
+        # check data types in submission.
+        if new_password_form.is_valid():
+            # Note that user instance is used here for updating (not posting)
+            # Hash the password and update the user object
+            user.set_password(request.POST['password'])
+            user.save()
+
+            # re-authenticate with new password
+            authenticated_user = authenticate(username=user.username, password=request.POST['password'])
+            login(request=request, user=authenticated_user)
+            
+            # return to user profile with success message after logging user in with new credentials
+            messages.success(request, "Password changed successfully!")
+            return HttpResponseRedirect(request.POST.get('next', f'/profile/{user.id}'))
+
+        else:
+            # return to form with form instance and message
+            context = {'new_password_form': new_password_form}
+            messages.error(request, "Password change failed. Please try again.")
+            return render(request, 'users/change_password.html', context)
