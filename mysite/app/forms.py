@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django import forms
 from app.models import *
 from django.contrib.admin import widgets
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Row, Column
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -39,3 +41,35 @@ class UserEditForm(forms.ModelForm):
       'last_name': 'Last Name',
       'email': 'Email'
     }
+
+class ChangePassword(forms.ModelForm):
+  old_password = forms.CharField(widget=forms.PasswordInput(), label='Old password')
+  password = forms.CharField(widget=forms.PasswordInput(), label='Password (at least 8 characters)')
+  confirm_password=forms.CharField(widget=forms.PasswordInput(),  label='Confirm new password')
+
+  def clean(self):
+      cleaned_data = super(ChangePassword, self).clean()
+      password = cleaned_data.get('password')
+      confirm_password = cleaned_data.get('confirm_password')
+
+      if password != confirm_password:
+          raise forms.ValidationError('')
+
+  def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Row(
+                Column('old_password', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row mb-n2'
+            ),
+            Row(
+                Column('password', css_class='form-group col-md-6 mb-0'),
+                Column('confirm_password', css_class='form-group col-md-6 mb-0')
+            ),
+        )
+
+  class Meta:
+      model = User
+      fields = ('password',)

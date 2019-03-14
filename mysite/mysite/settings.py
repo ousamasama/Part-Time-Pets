@@ -34,6 +34,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 
 INSTALLED_APPS = [
     'app',
+    'crispy_forms',
     'bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',

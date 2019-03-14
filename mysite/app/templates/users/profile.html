@@ -1,11 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<html>
-    <h1>Username: {{ profile.username }}</h1>
-    <h3>Email: {{ profile.email }}</h3>
-    <h3>Name: {{ profile.first_name|title }} {{ profile.last_name|title }}</h3>
-    <button><a href="{% url 'app:edit_user' profile.id %}">Edit Your Details</a></button>
-</html>
+    <div class='messages'>
+        {% for message in messages %}
+            <div class='{{ message.tags }} alert alert-danger' role='alert'>{{ message }}</div>
+        {% endfor %}
+    </div>
+
+    <div>
+        <h1>Username: {{ profile.username }}</h1>
+        <h3>Email: {{ profile.email }}</h3>
+        <h3>Name: {{ profile.first_name|title }} {{ profile.last_name|title }}</h3>
+        <button><a href="{% url 'app:edit_user' profile.id %}">Edit Your Details</a></button>
+        <button><a href="{% url 'app:change_password' %}">Change Password</a></button>
+    </div>
 
 {% endblock content %}
