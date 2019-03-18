@@ -6,7 +6,7 @@ from django.template import RequestContext
 from app.forms import *
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.urls import reverse
-from app.models import Dog, User, DogRental
+from app.models import Dog, User, DogRental, Review
 from datetime import datetime
 from django.db import connection
 from django.contrib.auth.password_validation import validate_password
@@ -146,8 +146,10 @@ def return_dog(request, dog_id):
     return HttpResponseRedirect(reverse('app:dogs'))
 
 def dog_detail(request, dog_id):
+    currentuser = request.user
     dog_detail = get_object_or_404(Dog, id = dog_id)
-    context = {'dog_detail': dog_detail}
+    reviews = Review.objects.all()
+    context = {'dog_detail': dog_detail, 'reviews': reviews}
     template_name = 'dogs/dog_detail.html'
     return render(request, template_name, context)
 
@@ -252,3 +254,29 @@ def change_password(request):
             context = {'new_password_form': new_password_form}
             messages.error(request, "Password change failed. Please try again.")
             return render(request, 'users/change_password.html', context)
+
+@login_required
+def add_review(request, dog_id):
+    currentuser = request.user
+    if request.method == 'GET':
+        dog = get_object_or_404(Dog, id=dog_id)
+        add_review = DogReviewForm()
+        template_name = 'dogs/add_review.html'
+        context = {'add_review': add_review, 'dog': dog}
+        return render(request, template_name, context)
+
+    if request.method == 'POST':
+        form = DogReviewForm(request.POST)
+        dog = get_object_or_404(Dog, id=dog_id)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.dog = dog
+            form.reviewer = request.user
+            description = request.POST['description']
+            print("form data", form)
+            form.save()
+
+            return HttpResponseRedirect(request.POST.get('next', f'/dog_detail/{dog_id}'))
+        else:
+            print("error")
+    

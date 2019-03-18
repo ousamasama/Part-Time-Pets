@@ -9,7 +9,7 @@
             {% for dog in your_dogs %}
             <div class="card">
                 <li>
-                    <h5>{{ dog.name }}</h5>
+                    <h5><a href="{% url 'app:dog_detail' dog.id %}">{{ dog.name }}</a></h5>
                     <h5>{{ dog.breed }}</h5>
                     <img src="{{ dog.image.url }}" height="200" width="200">
                     <br />

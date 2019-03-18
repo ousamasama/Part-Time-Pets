@@ -21,3 +21,8 @@ class DogRental(models.Model):
     renter = models.ForeignKey(User, on_delete=models.CASCADE)
     dog = models.ForeignKey(Dog,on_delete=models.CASCADE)
 
+class Review(models.Model):
+    description = models.CharField(max_length=200, blank=False, default='')
+    reviewer = models.ForeignKey(User, on_delete=models.CASCADE)
+    dog = models.ForeignKey(Dog,on_delete=models.CASCADE)
+    date = models.DateField(default=None, blank=False, null=True)
