@@ -117,8 +117,6 @@ source env/bin/activate
 ```
 ## Dependencies
 
-Before running next command!!
-
 List of libraries used:
 `Semantic-UI`
 `Bootstrap`
