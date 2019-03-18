@@ -1,12 +1,12 @@
 # Part Time Pets
 
-![PTP-LOGO](/images/ptplogo.PNG "Part Time Pets Logo")
+![PTP-LOGO](app/images/images/ptplogo.PNG "Part Time Pets Logo")
 
 This web application is the source code for the Part Time Pets(PTP) single page application designed by Ousama Elayan from Nashville Soft Ware School. This application was designed to afford users the opportunity to put up their dogs for rent to have a night out or to allow other users to rent said dog.
 
 ## Link to ERD
 
-![PTP-ERD](/images/PTPERD.PNG "Part Time Pets ERD")
+![PTP-ERD](app/images/images/PTPERD.PNG "Part Time Pets ERD")
 
 ## Helpful Resources
 
