@@ -1,12 +1,12 @@
 # Part Time Pets
 
-![PTP-LOGO](/images/ptplogo.PNG "Part Time Pets Logo")
+![PTP-LOGO](mysite/images/images/ptplogo.png "Part Time Pets Logo")
 
 This web application is the source code for the Part Time Pets(PTP) single page application designed by Ousama Elayan from Nashville Soft Ware School. This application was designed to afford users the opportunity to put up their dogs for rent to have a night out or to allow other users to rent said dog.
 
 ## Link to ERD
 
-![PTP-ERD](/images/PTPERD.PNG "Part Time Pets ERD")
+![PTP-ERD](mysite/images/images/PTPERD.png "Part Time Pets ERD")
 
 ## Helpful Resources
 
@@ -116,6 +116,13 @@ virtualenv env
 source env/bin/activate
 ```
 ## Dependencies
+
+List of libraries used:
+`Semantic-UI`
+`Bootstrap`
+`Crispy Forms`
+`Pillow`
+`PYTZ`
 
 Activate your vim and run `pip install -r requirements.txt`
 
