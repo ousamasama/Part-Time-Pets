@@ -117,6 +117,15 @@ source env/bin/activate
 ```
 ## Dependencies
 
+Before running next command!!
+
+List of libraries used:
+>Semantic-UI
+>Bootstrap
+>Crispy Forms
+>Pillow
+>PYTZ
+
 Activate your vim and run `pip install -r requirements.txt`
 
 
