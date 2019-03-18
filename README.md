@@ -6,7 +6,7 @@ This web application is the source code for the Part Time Pets(PTP) single page 
 
 ## Link to ERD
 
-![PTP-ERD](mysite/images/images/ptplogo.png "Part Time Pets ERD")
+![PTP-ERD](mysite/images/images/ptperd.png "Part Time Pets ERD")
 
 ## Helpful Resources
 
