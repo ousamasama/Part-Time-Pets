@@ -16,7 +16,7 @@
         {% if not your_dogs %}
         <div>
             <p>You have no dogs!</p>
-            <button><a href="{% url 'app:add_dog' %}">Add a dog!</a></button>
+            <button><a href="{% url 'app:add_dog' %}">Add a dog</a></button>
         </div>
         {% else %}
             {% for dog in your_dogs %}

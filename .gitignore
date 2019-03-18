@@ -39,8 +39,8 @@ bower_components
 *.pyc
 bin
 obj
-*.db
-*.sqlite3
+# *.db
+# *.sqlite3
 .vscode
 _codeLibrary
 .env.local
