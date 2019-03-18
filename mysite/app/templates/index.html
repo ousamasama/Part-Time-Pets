@@ -2,9 +2,15 @@
 
 {% load staticfiles %}
 {% block content %}
-    <h1>Welcome to Part Time Pets{% if user.is_authenticated %}, {{ user.first_name }}!
-        {%else %}!
-    </h1>
-    {% endif %}
+<div class='messages'>
+    {% for message in messages %}
+    <div class='{{ message.tags }} alert alert-danger' role='alert'>{{ message }}</div>
+    {% endfor %}
+</div>
+
+<h1>Welcome to Part Time Pets{% if user.is_authenticated %}, {{ user.first_name }}!
+    {%else %}!
+</h1>
+{% endif %}
 
 {% endblock content %}
