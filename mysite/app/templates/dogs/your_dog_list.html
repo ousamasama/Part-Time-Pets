@@ -13,18 +13,25 @@
 
 <ul style="list-style-type:none">
     <div class="containers">
-        {% for dog in your_dogs %}
-        <div class="card">
-            <li>
-                <h5><a href="{% url 'app:dog_detail' dog.id %}">{{ dog.name }}</a></h5>
-                <h5>{{ dog.breed }}</h5>
-                <img src="{{ dog.image.url }}" height="200" width="200">
-                <br />
-                <button><a href="{% url 'app:edit_dog' dog.id %}">Edit {{ dog.name }}</a></button>
-                <button><a href="{% url 'app:delete_dog' dog.id %}">Delete {{ dog.name }}</a></button>
-            </li>
+        {% if not your_dogs %}
+        <div>
+            <p>You have no dogs!</p>
+            <button><a href="{% url 'app:add_dog' %}">Add a dog!</a></button>
         </div>
-        {% endfor %}
+        {% else %}
+            {% for dog in your_dogs %}
+            <div class="card">
+                <li>
+                    <h5><a href="{% url 'app:dog_detail' dog.id %}">{{ dog.name }}</a></h5>
+                    <h5>{{ dog.breed }}</h5>
+                    <img src="{{ dog.image.url }}" height="200" width="200">
+                    <br />
+                    <button><a href="{% url 'app:edit_dog' dog.id %}">Edit {{ dog.name }}</a></button>
+                    <button><a href="{% url 'app:delete_dog' dog.id %}">Delete {{ dog.name }}</a></button>
+                </li>
+            </div>
+            {% endfor %}
+        {% endif %}
     </div>
 </ul>
 

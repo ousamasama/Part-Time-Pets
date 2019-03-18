@@ -8,9 +8,25 @@
     {% endfor %}
 </div>
 
-<h1>Welcome to Part Time Pets{% if user.is_authenticated %}, {{ user.first_name }}!
-    {%else %}!
-</h1>
+<image src="/images/images/ptplogo.png" height=500 width=1000></image>
+{% if user.is_authenticated %}
+<div>
+    <h1>Welcome to Part Time Pets, {{ user.first_name }}!</h1>
+</div>
+{% else %}
+<div>
+    <h1>Welcome to Part Time Pets!</h1>
+</div>
 {% endif %}
+
+
+<div>
+    <p>Need a night away from your pets?
+        Part Time pets is perfect for you then!
+        Here at PTP we specialize in getting your social life back while simultaneously helping some lucky renter have
+        the best night of their life.
+        Start today!
+    </p>
+</div>
 
 {% endblock content %}
