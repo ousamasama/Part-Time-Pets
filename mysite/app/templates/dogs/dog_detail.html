@@ -19,5 +19,21 @@
                 {% endif %}
         </div>
     </div>
+    <h3>Reviews</h3>
+    <ul style="list-style-type:none">
+
+        <div>
+            {% for review in reviews %}
+            {% if review.dog_id == dog_detail.id and review.user_id != user.id %}
+            <div>
+                <li>
+                    <p>Date of Review: {{ review.date }}</p>
+                    <p>{{ review.reviewer|title }} - {{ review.description }}</p>
+                </li>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </ul>
 </html>
 {% endblock content %}

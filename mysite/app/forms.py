@@ -5,6 +5,9 @@ from django.contrib.admin import widgets
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 
+class DateInput(forms.DateInput):
+  input_type = 'date'
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
@@ -18,6 +21,14 @@ class DogForm(forms.ModelForm):
         model = Dog
         fields = ('name', 'breed', 'description', 'image')
         labels = {'breed': 'Breed'}
+
+class DogReviewForm(forms.ModelForm):
+
+    class Meta:
+        model = Review
+        fields = ('description', 'date')
+        labels = {'description': 'Description', 'date': 'Date of Review'}
+        widgets = {'date': DateInput(),}
 
 class DogEditForm(forms.ModelForm):
   

@@ -37,8 +37,8 @@
                 <br />
                 {% for rental in dogrental %}
                 {% if rental.renter_id == user.id and rental.dog_id == dog.id %}
-                <button type="submit" name="submit" value="Return Dog"><a href="{% url 'app:return_dog' dog.id %}">Return
-                        Dog</a></button>
+                <button type="submit" name="submit" value="Return Dog"><a href="{% url 'app:return_dog' dog.id %}">Return Dog</a></button>
+                <button type="submit" name="submit" value="Review Dog"><a href="{% url 'app:add_review' dog.id %}">Review Dog</a></button>
                         {% endif %}
                         {% endfor %}
             </li>
