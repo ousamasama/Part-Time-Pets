@@ -14,5 +14,9 @@
         <button><a href="{% url 'app:edit_user' profile.id %}">Edit Your Details</a></button>
         <button><a href="{% url 'app:change_password' %}">Change Password</a></button>
     </div>
+    <br />
+    <div>
+        <button><a href="{% url 'app:are_you_sure' user.id %}">Delete Profile</a></button>
+    </div>
 
 {% endblock content %}

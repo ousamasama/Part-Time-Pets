@@ -279,4 +279,55 @@ def add_review(request, dog_id):
             return HttpResponseRedirect(request.POST.get('next', f'/dog_detail/{dog_id}'))
         else:
             print("error")
+
+@login_required
+def are_you_sure(request, user_id):
+    currentuser = request.user
+    user = User.objects.get(id = user_id)
+    context = {'user': user}
+    template_name = 'users/are_you_sure.html'
+    return render(request, template_name, context)
     
+@login_required
+def delete_profile(request, user_id):
+    currentuser = request.user
+    user = User.objects.get(id = user_id)
+    reviews = Review.objects.all()
+    dogs_rented = DogRental.objects.all()
+    dogs = Dog.objects.all()
+
+    for dog_rented in dogs_rented:
+        for dog in dogs:
+            if dog_rented.renter_id == user_id and dog_rented.dog_id == dog.id:
+                print("dog", dog)
+                dog.is_available = True
+                dog.save()
+                dog_rented.delete()
+
+    for review in reviews:
+        review.delete()
+
+    user.delete()
+    template_name = 'index.html'
+    messages.success(request, "Profile delete successfully!")
+    return render(request, template_name)
+
+@login_required
+def delete_dog(request, dog_id):
+    currentuser = request.user
+    dog = Dog.objects.get(id = dog_id)
+    dog_rented = DogRental.objects.filter(dog_id = dog_id)
+    reviews = Review.objects.all()
+
+    for rented in dog_rented:
+        if rented.dog_id == dog.id:
+            rented.delete()
+
+    for review in reviews:
+        if review.dog_id == dog.id:
+            review.delete()
+
+    dog.delete()
+
+    messages.success(request, "Dog deleted successfully!")
+    return HttpResponseRedirect(request.POST.get('next', f'/your_dog_list/{currentuser.id}'))

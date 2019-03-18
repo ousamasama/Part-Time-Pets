@@ -19,4 +19,7 @@ urlpatterns = [
     path('edit_user/<int:user_id>', views.edit_user, name='edit_user'),
     path('change_password/', views.change_password, name='change_password'),
     path('add_review/<int:dog_id>', views.add_review, name='add_review'),
+    path('are_you_sure/<int:user_id>', views.are_you_sure, name='are_you_sure'),
+    path('delete_profile/<int:user_id>', views.delete_profile, name='delete_profile'),
+    path('delete_dog/<int:dog_id>', views.delete_dog, name='delete_dog'),
 ]
