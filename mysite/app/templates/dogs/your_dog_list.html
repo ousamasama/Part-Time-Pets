@@ -2,38 +2,68 @@
 
 {% load static %}
 {% block content %}
-<html>
 <link rel="stylesheet" href="{% static 'index.css' %}" />
+
+<br />
 
 <div class='messages'>
     {% for message in messages %}
+    {% if message.tags == 'error' %}
     <div class='{{ message.tags }} alert alert-danger' role='alert'>{{ message }}</div>
+    {% else %}
+    <div class='{{ message.tags }} alert alert-success' role='alert'>{{ message }}</div>
+    {% endif %}
     {% endfor %}
 </div>
 
+{% if not your_dogs %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">You currently have no dogs uploaded to Part Time Pets!</h1>
+        <a class="btn btn-primary" role="button" href="{% url 'app:add_dog' %}">Add a dog</a>
+    </div>
+</div>
+{% else %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">List of dogs you have uploaded</h1>
+    </div>
+</div>
+{% for dog in your_dogs %}
+
 <ul style="list-style-type:none">
     <div class="containers">
-        {% if not your_dogs %}
-        <div>
-            <p>You have no dogs!</p>
-            <button><a href="{% url 'app:add_dog' %}">Add a dog</a></button>
-        </div>
-        {% else %}
-            {% for dog in your_dogs %}
-            <div class="card">
-                <li>
-                    <h5><a href="{% url 'app:dog_detail' dog.id %}">{{ dog.name }}</a></h5>
-                    <h5>{{ dog.breed }}</h5>
-                    <img src="{{ dog.image.url }}" height="200" width="200">
-                    <br />
-                    <button><a href="{% url 'app:edit_dog' dog.id %}">Edit {{ dog.name }}</a></button>
-                    <button><a href="{% url 'app:delete_dog' dog.id %}">Delete {{ dog.name }}</a></button>
-                </li>
+        <li>
+            <div class="card bg-light mb-3" style="width: 18rem;">
+                <img class="card-img-top" src="{{ dog.image.url }}" height="200" width="200" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'app:dog_detail' dog.id %}">{{ dog.name }}</a></h5>
+                    <p class="card-text">{{ dog.breed }}</p>
+                    <p class="card-text">{{ dog.description }}</p>
+                    <div class="card-body">
+                        <a class="btn btn-primary btn-lg btn-block" role="button"
+                            href="{% url 'app:edit_dog' dog.id %}">Edit {{ dog.name }}</a>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <strong>
+                                <u>
+                                    Warning:
+                                    <br />
+                                    This permanently removes <mark>{{ dog.name }}</mark> from our database. You must
+                                    reupload <mark>{{ dog.name }}</mark> to have them listed again.
+                                </u>
+                            </strong>
+                        </p>
+                        <a class="btn btn-danger btn-lg btn-block" role="button"
+                            href="{% url 'app:delete_dog' dog.id %}">Remove Listing</a>
+                    </div>
+                </div>
             </div>
-            {% endfor %}
+        </li>
+        {% endfor %}
         {% endif %}
     </div>
 </ul>
 
-</html>
 {% endblock content %}

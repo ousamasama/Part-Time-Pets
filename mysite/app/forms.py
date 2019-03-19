@@ -14,6 +14,20 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password', 'first_name', 'last_name',)
+    
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.form_class = 'form-inline'
+        self.helper.field_template = 'bootstrap3/layout/inline_field.html'
+        self.helper.layout = Layout(
+          'username',
+          'email',
+          'password',
+          'first_name',
+          'last_name',
+        )
 
 class DogForm(forms.ModelForm):
 
@@ -22,6 +36,19 @@ class DogForm(forms.ModelForm):
         fields = ('name', 'breed', 'description', 'image')
         labels = {'breed': 'Breed'}
 
+    def __init__(self, *args, **kwargs):
+        super(DogForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.form_class = 'form-inline'
+        self.helper.field_template = 'bootstrap3/layout/inline_field.html'
+        self.helper.layout = Layout(
+          'name',
+          'breed',
+          'description',
+          'image',
+        )
+
 class DogReviewForm(forms.ModelForm):
 
     class Meta:
@@ -29,6 +56,17 @@ class DogReviewForm(forms.ModelForm):
         fields = ('description', 'date')
         labels = {'description': 'Description', 'date': 'Date of Review'}
         widgets = {'date': DateInput(),}
+    
+    def __init__(self, *args, **kwargs):
+        super(DogReviewForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.form_class = 'form-inline'
+        self.helper.field_template = 'bootstrap3/layout/inline_field.html'
+        self.helper.layout = Layout(
+          'description',
+          'date',
+        )
 
 class DogEditForm(forms.ModelForm):
   
@@ -40,6 +78,18 @@ class DogEditForm(forms.ModelForm):
       'description': 'Description',
       'image': 'Image',
     }
+  
+  def __init__(self, *args, **kwargs):
+        super(DogEditForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.form_class = 'form-inline'
+        self.helper.field_template = 'bootstrap3/layout/inline_field.html'
+        self.helper.layout = Layout(
+          'name',
+          'description',
+          'image',
+        )
 
 class UserEditForm(forms.ModelForm):
   
@@ -71,14 +121,9 @@ class ChangePassword(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.layout = Layout(
-            Row(
-                Column('old_password', css_class='form-group col-md-6 mb-0'),
-                css_class='form-row mb-n2'
-            ),
-            Row(
-                Column('password', css_class='form-group col-md-6 mb-0'),
-                Column('confirm_password', css_class='form-group col-md-6 mb-0')
-            ),
+          'old_password',
+          'password',
+          'confirm_password'
         )
 
   class Meta:

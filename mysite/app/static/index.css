@@ -4,3 +4,11 @@
     justify-content: space-around;
     flex-wrap: wrap;
   }
+
+  .navbar-nav li a {
+    color: #4D7EA8 !important;
+  }
+
+  .navbar-brand {
+    color: #272932 !important;
+  }

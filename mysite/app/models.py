@@ -8,6 +8,9 @@ class Breed(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        ordering = ('name',)
 
 class Dog(models.Model):
     name = models.CharField(max_length=100, blank=False)
@@ -26,3 +29,6 @@ class Review(models.Model):
     reviewer = models.ForeignKey(User, on_delete=models.CASCADE)
     dog = models.ForeignKey(Dog,on_delete=models.CASCADE)
     date = models.DateField(default=None, blank=False, null=True)
+
+    class Meta:
+        ordering = ('date',)

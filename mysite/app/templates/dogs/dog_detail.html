@@ -2,43 +2,63 @@
 
 {% load static %}
 {% block content %}
-<html>
+
 <link rel="stylesheet" href="{% static 'index.css' %}" />
-    <div class="containers">
-        <div class="card">
-            <h5>{{ dog_detail.name }}</h5>
-            <h5>{{ dog_detail.breed }}</h5>
-                <img src="{{ dog_detail.image.url }}" height="200" width="200">
+
+<br />
+
+<div class="containers">
+    <div class="card bg-light mb-3" style="width: 18em;">
+        <div class="card-body">
+            <img class="card-img-top" src="{{ dog_detail.image.url }}" height="200" width="200" alt="Card image cap">
+            <h5 class="card-title">{{ dog_detail.name }}</h5>
+            <p class="card-text">{{ dog_detail.breed }}</p>
+            <p class="card-text">Description:
                 <br />
-                {% if user.is_authenticated and dog_detail.is_available == True %}
-                <button type="submit" name="submit" value="Rent Dog"><a href="{% url 'app:rent_dog' dog_detail.id %}">Rent Dog</a></button>
-                {% elif dog_detail.is_available == False %}
-                <p>This dog is out for rent!</p>
-                {% else %}
-                <p>Login to rent this dog!</p>
-                {% endif %}
+                {{ dog_detail.description }}
+            </p>
+            <br />
+            {% if user.is_authenticated and dog_detail.is_available == True and dog_detail.owner_id != user.id %}
+            <a class="btn btn-success" role="button" href="{% url 'app:rent_dog' dog_detail.id %}">Rent Dog</a>
+            {% elif dog_detail.is_available == False %}
+            <p>This dog is out for rent!</p>
+            {% elif dog_detail.owner_id == user.id %}
+            <p>This is your dog!</p>
+            {% else %}
+            <p>Login to rent this dog!</p>
+            {% endif %}
         </div>
     </div>
-    <h3>Reviews</h3>
-    {% if not reviews %}
-    <div>
-        <p>{{ dog_detail.name }} has no reviews!</p>
-    </div>
-    {% else %}
-    <ul style="list-style-type:none">
-        <div>
-            {% for review in reviews %}
-            {% if review.dog_id == dog_detail.id and review.user_id != user.id %}
-            <div>
-                <li>
-                    <p>{{ review.date }}</p>
-                    <p>{{ review.reviewer|title }} - {{ review.description }}</p>
-                </li>
+</div>
+<h3>Reviews</h3>
+{% if not reviews %}
+<div>
+    <p>{{ dog_detail.name }} has no reviews!</p>
+</div>
+{% else %}
+<ul style="list-style-type:none">
+    {% for review in reviews %}
+    {% if review.dog_id == dog_detail.id %}
+    <li>
+        <div class="card text-center">
+            <div class="card-header text-muted">
+                {{ review.date }}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ review.reviewer|title }}</h5>
+                <p class="card-text">{{ review.description }}</p>
+            </div>
+            {% if review.reviewer_id == user.id %}
+            <div class="card-footer text-muted">
+                <a class="btn btn-danger" role="button" href="{% url 'app:delete_review' review.id %}">Delete Review</a>
             </div>
             {% endif %}
-            {% endfor %}
         </div>
-    </ul>
+        <br />
+    </li>
     {% endif %}
-</html>
+    {% endfor %}
+</ul>
+{% endif %}
+
 {% endblock content %}
