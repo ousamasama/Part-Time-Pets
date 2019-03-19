@@ -75,15 +75,16 @@ def login_user(request):
         if authenticated_user is not None:
             login(request=request, user=authenticated_user)
             if request.POST.get('next') == '/':
-              return HttpResponseRedirect('/')
+                messages.success(request, "Login successful!")
+                return HttpResponseRedirect('/')
             else:
               print("ELSE STATEMENT:", request.POST.get('next', '/'))
               return HttpResponseRedirect(request.POST.get('next', '/'))
 
         else:
             # Bad login details were provided. So we can't log the user in.
-            print("Invalid login details: {}, {}".format(username, password))
-            return render(request, 'invalid_login.html', context)
+            messages.error(request, "Invalid login details provided. Please try again.")
+            return render(request, 'login.html', context)
 
 
     return render(request, 'login.html', context)
@@ -107,6 +108,7 @@ def dogs(request):
 
 @login_required
 def add_dog(request):
+    currentuser = request.user
     if request.method == 'GET':
         add_dog = DogForm()
         template_name = 'dogs/add_dog.html'
@@ -119,8 +121,9 @@ def add_dog(request):
             form = form.save(commit=False)
             form.owner = request.user
             print("form data", form)
-            form.save()
-            return HttpResponseRedirect(reverse('app:dogs'))
+            form.save()            
+            messages.success(request, f"{form.name} added successfully!")
+            return HttpResponseRedirect(request.POST.get('next', f'/your_dog_list/{currentuser.id}'))
         else:
             print("error")
 
@@ -167,8 +170,10 @@ def edit_dog(request, dog_id):
     currentuser = request.user
     if request.method == 'POST':
         form = DogEditForm(instance=dog, data=request.POST, files=request.FILES)
+        print("form", form)
         if form.is_valid():
-            form.save() 
+            form.save()
+        messages.success(request, f"{dog.name}'s details changed successfully!")
         return HttpResponseRedirect(reverse('app:your_dog_list', args=[currentuser.id]))
   
     elif request.method == 'GET':
@@ -193,7 +198,9 @@ def edit_user(request, user_id):
     if request.method == 'POST':
         form = UserEditForm(instance=user, data=request.POST)
         if form.is_valid():
-            form.save() 
+            form.save()
+
+        messages.success(request, "Profile details changed successfully!")
         return HttpResponseRedirect(reverse('app:profile', args=[user.id]))
   
     elif request.method == 'GET':
@@ -273,9 +280,9 @@ def add_review(request, dog_id):
             form.dog = dog
             form.reviewer = request.user
             description = request.POST['description']
-            print("form data", form)
             form.save()
 
+            messages.success(request, "Review added successfully!")
             return HttpResponseRedirect(request.POST.get('next', f'/dog_detail/{dog_id}'))
         else:
             print("error")
@@ -309,7 +316,7 @@ def delete_profile(request, user_id):
 
     user.delete()
     template_name = 'index.html'
-    messages.success(request, "Profile delete successfully!")
+    messages.success(request, "Profile deleted successfully!")
     return render(request, template_name)
 
 @login_required
@@ -331,3 +338,11 @@ def delete_dog(request, dog_id):
 
     messages.success(request, "Dog deleted successfully!")
     return HttpResponseRedirect(request.POST.get('next', f'/your_dog_list/{currentuser.id}'))
+
+@login_required
+def delete_review(request, review_id):
+    currentuser = request.user
+    review = Review.objects.get(id = review_id)
+    dog = review.dog_id
+    review.delete()
+    return HttpResponseRedirect(request.POST.get('next', f'/dog_detail/{dog}'))

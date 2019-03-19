@@ -6,8 +6,8 @@
 <h1>Are you sure you want to delete your profile, {{ user.first_name }}?</h1>
 
 <h3>All associated dogs added by you will be deleted and all dogs rented by you will be returned.</h3>
-<button><a href="{% url 'app:delete_profile' user.id %}">Delete Profile</a></button>
+<a class="btn btn-danger" role="button" href="{% url 'app:delete_profile' user.id %}">Delete Profile</a>
 
-<button><a href="{% url 'app:profile' user.id %}">Back</a></button>
+<a class="btn btn-primary" role="button" href="{% url 'app:profile' user.id %}">Back</a>
 
 {% endblock content %}

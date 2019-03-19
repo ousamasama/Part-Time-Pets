@@ -1,26 +1,25 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-        <h1>Register with Part Time Pets</h1>
+<h1>Register with Part Time Pets</h1>
 
-        {% if registered %}
-        <strong>Thank you for registering!</strong>
-        <a href="{% url 'app:index' %}">Return to the homepage.</a><br />
-        {% else %}
-        <strong>Register here!</strong><br />
+{% if registered %}
+<strong>Thank you for registering!</strong>
+<a href="{% url 'app:index' %}">Return to the homepage.</a><br />
+{% else %}
+<strong>Register here!</strong><br />
 
-        <form id="user_form" method="post" action="{% url 'app:register' %}"
-                enctype="multipart/form-data">
-
-            {% csrf_token %}
-
-            <!-- Display each form. The as_p method wraps each element in a paragraph
-                 (<p>) element. This ensures each element appears on a new line,
-                 making everything look neater. -->
-            {{ user_form.as_p }}
-
-            <!-- Provide a button to click to submit the form. -->
-            <input type="submit" name="submit" value="Register" />
-        </form>
-        {% endif %}
+<div class='card mb-3'>
+        <div class='card-header'>
+                <div class='card-body' style='padding-top: 10px; padding-bottom: 10px;'>
+                        <form id="user_form" method="POST" action="{% url 'app:register' %}">
+                                {% csrf_token %}
+                                {% crispy user_form %}
+                                <input class="btn btn-success" type="submit" name="submit" value="Register" />
+                        </form>
+                </div>
+        </div>
+</div>
+{% endif %}
 {% endblock content %}

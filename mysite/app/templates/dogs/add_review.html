@@ -3,10 +3,17 @@
 
 {% block content %}
 
-    <form id="add_review" method="POST" action="{% url 'app:add_review' dog.id %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        <h3>{{ user.first_name }}'s review for {{ dog.name }}</h3>
-        {{ add_review.as_p }}
-        <input class="btn btn-dark" type="submit" name="submit" value="Add Review" />
-    </form>
+<div class='card mb-3'>
+    <div class='card-header'>
+        <div class='card-body' style='padding-top: 10px; padding-bottom: 10px;'>
+            <form id="add_review" method="POST" action="{% url 'app:add_review' dog.id %}">
+                {% csrf_token %}
+                <h3>{{ user.first_name }}'s review for {{ dog.name }}</h3>
+                {% crispy add_review %}
+                <input class="btn btn-success" type="submit" name="submit" value="Add Review" />
+            </form>
+        </div>
+    </div>
+</div>
+
 {% endblock content %}

@@ -2,9 +2,16 @@
 
 {% load staticfiles %}
 {% block content %}
+
+<br />
+
 <div class='messages'>
     {% for message in messages %}
+    {% if message.tags == 'error' %}
     <div class='{{ message.tags }} alert alert-danger' role='alert'>{{ message }}</div>
+    {% else %}
+    <div class='{{ message.tags }} alert alert-success' role='alert'>{{ message }}</div>
+    {% endif %}
     {% endfor %}
 </div>
 
