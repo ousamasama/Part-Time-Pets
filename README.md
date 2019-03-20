@@ -118,7 +118,6 @@ source env/bin/activate
 ## Dependencies
 
 List of libraries used:
-`Semantic-UI`
 `Bootstrap`
 `Crispy Forms`
 `Pillow`
@@ -167,19 +166,23 @@ Home, Dogs, Add Dog, Your Dogs, Profile, and Logout.
 
 ### Dogs 
 `http://localhost:8000/dogs/`
-Here you will have access to all dogs posted to PTP. If you click on the dog's name, you will be taken to its detail page. If you are logged in, you will be afforded the opportunity to rent a dog/return that dog. Dogs are sorted by present availability.
+Here you will have access to all dogs posted to PTP. If you click on the dog's name, you will be taken to its detail page. If you are logged in, you will be afforded the opportunity to rent a dog or review/return a dog if you have checked it out for rental. Dogs are sorted by present availability.
+
+### Dog Details 
+`http://localhost:8000/dog_detail/{dog.id}`
+This is the specific dog's detail page, which can be accessed by clicking the dog's name on the `dogs` page. Here, you can see the dog's details as well as reviews left by other users.
 
 ### Add Dog
 `http://localhost:8000/add_dog/`
-Displays a form allowing a user to add a dog for rental on PTP. This link will only be visible to authenticated users.  The person filling out the form will be able to enter a name and description, select the dog's breed, and upload an image.
+Displays a form allowing a user to add a dog for rental on PTP. This link will only be visible to authenticated users. The person filling out the form will be able to enter a name and description, select the dog's breed, and upload an image.
 
 ### Your Dogs
 `http://localhost:8000/your_dog_list/`
-Displays the information related to the logged in user.  There the user will see a list of dog's they have currently uploaded to PTP. From here, you will be able to edit your dog's name, description, and image or delete said dog from the database.
+Displays the information related to the logged in user. There the user will see a list of dog's they have currently uploaded to PTP. From here, you will be able to edit your dog's name, description, and image or delete said dog from the database.
 
 ### Profile
 `http://localhost:8000/profile/`
-Displays the information related to the logged in user.  There the user will see their current information that they registered with. Said user will be afforded the opporunity to edit their profile, change their password, or delete their profile, which in turn deletes all of their currently uploaded dogs, reviews made, and dogs rented.
+Displays the information related to the logged in user. There the user will see their current information that they registered with. Said user will be afforded the opporunity to edit their profile, change their password, or delete their profile, which in turn deletes all of their currently uploaded dogs, reviews made, and dogs rented.
 
 ### Logout
 Logs the currently logged in user out of the application and pushes them to the home page.
