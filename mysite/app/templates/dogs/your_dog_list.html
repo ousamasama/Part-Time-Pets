@@ -26,26 +26,29 @@
 {% else %}
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
+        <image src="/images/images/yourdoglist.jpeg" height=250 width=1000></image>
+        <hr class="my-4">
         <h1 class="display-4">List of dogs you have uploaded</h1>
+        <p class="lead">Edit details or remove listings here</p>
     </div>
 </div>
-{% for dog in your_dogs %}
 
-<ul style="list-style-type:none">
-    <div class="containers">
+<ul style="list-style-type:none; padding: 0;">
+    <div class="containers" style='margin-right: 10px; margin-left: 10px;'>
+        {% for dog in your_dogs %}
         <li>
             <div class="card bg-light mb-3" style="width: 18rem;">
-                <img class="card-img-top" src="{{ dog.image.url }}" height="200" width="200" alt="Card image cap">
+                <img class="card-img-top" src="{{ dog.image.url }}" height="300" width="300" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title"><a href="{% url 'app:dog_detail' dog.id %}">{{ dog.name }}</a></h5>
-                    <p class="card-text">{{ dog.breed }}</p>
-                    <p class="card-text">{{ dog.description }}</p>
+                    <p class="card-text" style='font-size: 0.8em;'>{{ dog.breed }}</p>
+                    <p class="card-text" style='font-size: 0.8em;'>{{ dog.description }}</p>
                     <div class="card-body">
                         <a class="btn btn-primary btn-lg btn-block" role="button"
                             href="{% url 'app:edit_dog' dog.id %}">Edit {{ dog.name }}</a>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">
+                        <p class="card-text" style='font-size: 0.8em;'>
                             <strong>
                                 <u>
                                     Warning:

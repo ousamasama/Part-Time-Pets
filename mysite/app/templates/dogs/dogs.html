@@ -15,8 +15,8 @@
     </div>
 </div>
 
-<ul style="list-style-type:none">
-    <div class="containers">
+<ul style='list-style-type:none; padding: 0;'>
+    <div class="containers" style='margin-right: 10px; margin-left: 10px;'>
         {% for dog in dogs %}
         {% if dog.is_available == True and dog.owner_id != user.id %}
         <li>
@@ -24,7 +24,7 @@
                 <img class="card-img-top" src="{{ dog.image.url }}" height="200" width="200" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title"><a href="{% url 'app:dog_detail' dog.id %}">{{ dog.name }}</a></h5>
-                    <p class="card-text">{{ dog.breed }}</p>
+                    <p class="card-text" style='font-size: 0.8em;'>{{ dog.breed }}</p>
                 </div>
             </div>
         </li>
@@ -43,8 +43,8 @@
     </div>
 </div>
 
-<ul style="list-style-type:none">
-    <div class="containers">
+<ul style='list-style-type:none; padding: 0;'>
+    <div class="containers" style='margin-right: 10px; margin-left: 10px;'>
         {% for dog in dogs %}
         {% if dog.is_available == False and dog.owner_id != user.id %}
         <li>
@@ -52,7 +52,7 @@
                 <img class="card-img-top" src="{{ dog.image.url }}" height="200" width="200" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title"><a href="{% url 'app:dog_detail' dog.id %}">{{ dog.name }}</a></h5>
-                    <p class="card-text">{{ dog.breed }}</p>
+                    <p class="card-text" style='font-size: 0.8em;'>{{ dog.breed }}</p>
                 </div>
                 {% for rental in dogrental %}
                 {% if rental.renter_id == user.id and rental.dog_id == dog.id %}

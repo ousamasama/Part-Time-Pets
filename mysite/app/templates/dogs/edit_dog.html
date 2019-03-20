@@ -5,10 +5,13 @@
 
 <div class='card mb-3'>
     <div class='card-header'>
+        <h1 class="card-header">Edit your dog's details here</h1>
+        <image style='border: 1px solid black; float: right;' src="{{ dog.image.url }}" height=400 width=400></image>
         <div class='card-body' style='padding-top: 10px; padding-bottom: 10px;'>
             <form id="edit_dog" method="POST" action="{% url 'app:edit_dog' dog.id %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% crispy edit_dog %}
+                <br />
                 <input class="btn btn-success" type="submit" name="submit" value="Edit Dog" />
             </form>
         </div>

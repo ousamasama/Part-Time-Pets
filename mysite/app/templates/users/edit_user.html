@@ -4,14 +4,17 @@
 {% block content %}
 <div class='card mb-3'>
     <div class='card-header'>
-        <div class='card-body' style='padding-top: 10px; padding-bottom: 10px;'>
-            <form id="edit_user" method="POST" action="{% url 'app:edit_user' user.id %}" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% crispy edit_user %}
-                <input class="btn btn-success" type="submit" name="submit" value="Edit User" />
-            </form>
+        <h1 class='card-header'>Edit your profile here</h1>
+        <image style='border: 1px solid black; float: right;' src="/images/images/edit.jpeg" height=600 width=500></image>
+            <div class='card-body' style='padding-top: 10px; padding-bottom: 10px;'>
+                <form id="edit_user" method="POST" action="{% url 'app:edit_user' user.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% crispy edit_user %}
+                    <input class="btn btn-success" type="submit" name="submit" value="Edit User" />
+                </form>
+            </div>
         </div>
     </div>
-</div>
+    </div>
 
 {% endblock content %}

@@ -5,6 +5,8 @@
 
 <div class='card mb-3'>
     <div class='card-header'>
+        <image style='border: 1px solid black; float: right;' src="/images/images/corgis.jpeg" height=450 width=750></image>
+        <h1 class="card-header">List a dog to be rented!</h1>
         <div class='card-body' style='padding-top: 10px; padding-bottom: 10px;'>
             <form id="add_dog" method="POST" action="{% url 'app:add_dog' %}" enctype="multipart/form-data">
                 {% csrf_token %}
