@@ -3,7 +3,7 @@ from django import forms
 from app.models import *
 from django.contrib.admin import widgets
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column
+from crispy_forms.layout import Layout, Row, Column, Field
 
 class DateInput(forms.DateInput):
   input_type = 'date'
@@ -40,7 +40,6 @@ class DogForm(forms.ModelForm):
         super(DogForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
-        self.helper.form_class = 'form-inline'
         self.helper.field_template = 'bootstrap3/layout/inline_field.html'
         self.helper.layout = Layout(
           'name',
@@ -86,9 +85,9 @@ class DogEditForm(forms.ModelForm):
         self.helper.form_class = 'form-inline'
         self.helper.field_template = 'bootstrap3/layout/inline_field.html'
         self.helper.layout = Layout(
-          'name',
-          'description',
-          'image',
+          Field('name', style='width: 15%;'),
+          Field('description', style='width: 50%;'),
+          Field('image',),
         )
 
 class UserEditForm(forms.ModelForm):
@@ -102,6 +101,19 @@ class UserEditForm(forms.ModelForm):
       'last_name': 'Last Name',
       'email': 'Email'
     }
+  
+  def __init__(self, *args, **kwargs):
+        super(UserEditForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.form_class = 'form-inline'
+        self.helper.field_template = 'bootstrap3/layout/inline_field.html'
+        self.helper.layout = Layout(
+          Field('username', style='width: 15%;'),
+          Field('first_name', style='width: 15%;'),
+          Field('last_name', style='width: 15%;'),
+          Field('email', style='width: 20%;'),
+        )
 
 class ChangePassword(forms.ModelForm):
   old_password = forms.CharField(widget=forms.PasswordInput(), label='Old password')

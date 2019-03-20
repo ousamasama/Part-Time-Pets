@@ -13,12 +13,12 @@
     {% endfor %}
 </div>
 
-<div class="card text-center" style="width: 18rem;">
+<div style='margin-right: 10px; margin-left: 10px;' class="card text-center" style="width: 18rem;">
     <div class="card-body">
         <h5 class="card-title">{{ profile.first_name|title }} {{ profile.last_name|title }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{ profile.username }}</h6>
         <h6 class="card-subtitle mb-2 text-muted">{{ profile.email }}</h6>
-        <p class="card-text">While your profile isn't visible to other users just yet, it keeps owners safe when anything happens to their dogs.</p>
+        <p class="card-text">While your profile isn't visible to other users, it keeps owners safe when anything happens to their dogs.</p>
         <div class="card-body">
             <a class="btn btn-primary btn-lg btn-block" role="button" href="{% url 'app:edit_user' profile.id %}">Edit Your Profile</a>
             <a class="btn btn-primary btn-lg btn-block" role="button" href="{% url 'app:change_password' %}">Change Password</a>

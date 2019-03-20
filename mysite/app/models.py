@@ -20,6 +20,9 @@ class Dog(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     breed = models.ForeignKey(Breed, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ('name',)
+
 class DogRental(models.Model):
     renter = models.ForeignKey(User, on_delete=models.CASCADE)
     dog = models.ForeignKey(Dog,on_delete=models.CASCADE)

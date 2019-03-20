@@ -7,26 +7,28 @@
 
 <br />
 
-<div class="containers">
+<div class="containers" style='margin-right: 10px; margin-left: 10px;'>
     <div class="card bg-light mb-3" style="width: 18em;">
-        <div class="card-body">
-            <img class="card-img-top" src="{{ dog_detail.image.url }}" height="200" width="200" alt="Card image cap">
-            <h5 class="card-title">{{ dog_detail.name }}</h5>
-            <p class="card-text">{{ dog_detail.breed }}</p>
-            <p class="card-text">Description:
+        <div class="card-body" style="padding: 0;">
+            <img class="card-img-top" src="{{ dog_detail.image.url }}" height="300" width="300" alt="Card image cap">
+            <div style="padding: 5;">
+                <h5 class="card-title">{{ dog_detail.name }}</h5>
+                <p class="card-text">{{ dog_detail.breed }}</p>
+                <p class="card-text">Description:
+                    <br />
+                    {{ dog_detail.description }}
+                </p>
                 <br />
-                {{ dog_detail.description }}
-            </p>
-            <br />
-            {% if user.is_authenticated and dog_detail.is_available == True and dog_detail.owner_id != user.id %}
-            <a class="btn btn-success" role="button" href="{% url 'app:rent_dog' dog_detail.id %}">Rent Dog</a>
-            {% elif dog_detail.is_available == False %}
-            <p>This dog is out for rent!</p>
-            {% elif dog_detail.owner_id == user.id %}
-            <p>This is your dog!</p>
-            {% else %}
-            <p>Login to rent this dog!</p>
-            {% endif %}
+                {% if user.is_authenticated and dog_detail.is_available == True and dog_detail.owner_id != user.id %}
+                <a class="btn btn-success" role="button" href="{% url 'app:rent_dog' dog_detail.id %}">Rent Dog</a>
+                {% elif dog_detail.is_available == False %}
+                <p style='font-weight: bold;'>This dog is out for rent!</p>
+                {% elif dog_detail.owner_id == user.id %}
+                <p style='font-weight: bold;'>This is your dog!</p>
+                {% else %}
+                <p style='font-weight: bold;'>Login to rent this dog!</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>

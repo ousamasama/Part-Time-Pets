@@ -15,25 +15,18 @@
     {% endfor %}
 </div>
 
-<image src="/images/images/ptplogo.png" height=500 width=1000></image>
 {% if user.is_authenticated %}
-<div>
-    <h1>Welcome to Part Time Pets, {{ user.first_name }}!</h1>
+<div style='margin-right: 10px; margin-left: 10px; text-align: center;'>
+    <h1 class="card-title">Welcome to Part Time Pets, {{ user.first_name|title }}</h1>
+    <h6 class="card-subtitle mb-2 text-muted">We specialize in introducing dogs to new friends! Start your adventures today!</h6>
+    <image style='display: block; margin: 0 auto;' src="/images/images/ptplogo.png" height=500 width=1000></image>
 </div>
 {% else %}
-<div>
-    <h1>Welcome to Part Time Pets!</h1>
-</div>
+<div style='margin-right: 10px; margin-left: 10px; text-align: center;'>
+        <h1 class="card-title">Welcome to Part Time Pets!</h1>
+        <h6 class="card-subtitle mb-2 text-muted">We specialize in introducing dogs to new friends! Start your adventures today!</h6>
+        <image style='display: block; margin: 0 auto;' src="/images/images/ptplogo.png" height=500 width=1000></image>
+    </div>
 {% endif %}
-
-
-<div>
-    <p>Need a night away from your pets?
-        Part Time pets is perfect for you then!
-        Here at PTP we specialize in getting your social life back while simultaneously helping some lucky renter have
-        the best night of their life.
-        Start today!
-    </p>
-</div>
 
 {% endblock content %}

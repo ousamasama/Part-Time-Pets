@@ -2,12 +2,13 @@
 
 {% load staticfiles %}
 {% block content %}
-
-<h1>Are you sure you want to delete your profile, {{ user.first_name }}?</h1>
-
-<h3>All associated dogs added by you will be deleted and all dogs rented by you will be returned.</h3>
-<a class="btn btn-danger" role="button" href="{% url 'app:delete_profile' user.id %}">Delete Profile</a>
-
-<a class="btn btn-primary" role="button" href="{% url 'app:profile' user.id %}">Back</a>
+<div style='margin-right: 10px; margin-left: 10px;' class="card text-center" style="width: 18rem;">
+    <div class="card-body">
+        <h1 class="card-title">Are you sure you want to delete your profile, {{ user.first_name }}?</h1>
+        <h3 class="card-subtitle mb-2 text-muted">All associated dogs listed by you will be removed and all dogs rented by you will be returned.</h3>
+        <a class="btn btn-primary btn-lg btn-block" role="button" href="{% url 'app:profile' user.id %}">Back</a>
+        <a class="btn btn-danger btn-lg btn-block" role="button" href="{% url 'app:delete_profile' user.id %}">Delete Profile</a>
+    </div>
+</div>
 
 {% endblock content %}
