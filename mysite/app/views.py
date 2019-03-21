@@ -15,6 +15,9 @@ from django.contrib import messages
 # Create your views here.
 
 def index(request):
+    '''
+    Renders the home page
+    '''
     template_name = 'index.html'
     return render(request, template_name)
 
@@ -100,6 +103,9 @@ def user_logout(request):
     return HttpResponseRedirect('/')
 
 def dogs(request):
+    '''
+    Brings back all dogs listed in database
+    '''
     dogs = Dog.objects.all()
     dogrental = DogRental.objects.all()
     context = {'dogs': dogs, 'dogrental': dogrental}
@@ -108,6 +114,9 @@ def dogs(request):
 
 @login_required
 def add_dog(request):
+    '''
+    Allows user to add new dog
+    '''
     currentuser = request.user
     if request.method == 'GET':
         add_dog = DogForm()
@@ -129,6 +138,9 @@ def add_dog(request):
 
 @login_required
 def rent_dog(request, dog_id):
+    '''
+    Allows user to rent dog
+    '''
     currentuser = request.user
     dog_to_rent = Dog.objects.get(id = dog_id)
     dog_to_rent.is_available = False
@@ -139,6 +151,9 @@ def rent_dog(request, dog_id):
 
 @login_required
 def return_dog(request, dog_id):
+    '''
+    Allows user to return dog they have rented
+    '''
     currentuser = request.user
     dog_to_rent = Dog.objects.get(id = dog_id)
     rented_dog = DogRental.objects.get(renter = currentuser, dog = dog_to_rent)
@@ -149,6 +164,9 @@ def return_dog(request, dog_id):
     return HttpResponseRedirect(reverse('app:dogs'))
 
 def dog_detail(request, dog_id):
+    '''
+    Shows user the specific dog's information
+    '''
     currentuser = request.user
     dog_detail = get_object_or_404(Dog, id = dog_id)
     reviews = Review.objects.all()
@@ -158,6 +176,9 @@ def dog_detail(request, dog_id):
 
 @login_required
 def your_dog_list(request, user_id):
+    '''
+    Shows user the dogs they have uploaded
+    '''
     currentuser = request.user
     your_dogs = Dog.objects.filter(owner_id = currentuser.id)
     context = {'your_dogs': your_dogs}
@@ -166,6 +187,9 @@ def your_dog_list(request, user_id):
 
 @login_required
 def edit_dog(request, dog_id):
+    '''
+    Allows user to edit dog's information
+    '''
     dog = get_object_or_404(Dog, id=dog_id)
     currentuser = request.user
     if request.method == 'POST':
@@ -184,6 +208,9 @@ def edit_dog(request, dog_id):
 
 @login_required
 def profile(request, user_id):
+    '''
+    Renders the profile page
+    '''
     currentuser = request.user
     profile = currentuser
     context = {'profile': profile}
@@ -192,6 +219,9 @@ def profile(request, user_id):
 
 @login_required
 def edit_user(request, user_id):
+    '''
+    Allows user to edit their information
+    '''
     currentuser = request.user
     user = currentuser
     print("user", user)
@@ -212,7 +242,9 @@ def edit_user(request, user_id):
 #thanks brendan
 @login_required
 def change_password(request):
-
+    '''
+    Allows user to edit their password
+    '''
     if request.method == 'GET':
         user = request.user
         new_password_form = ChangePassword()
@@ -264,6 +296,9 @@ def change_password(request):
 
 @login_required
 def add_review(request, dog_id):
+    '''
+    Allows user to add a review to a dog
+    '''
     currentuser = request.user
     if request.method == 'GET':
         dog = get_object_or_404(Dog, id=dog_id)
@@ -289,6 +324,9 @@ def add_review(request, dog_id):
 
 @login_required
 def are_you_sure(request, user_id):
+    '''
+    Allows user to confirm they want to delete their profile
+    '''
     currentuser = request.user
     user = User.objects.get(id = user_id)
     context = {'user': user}
@@ -297,6 +335,9 @@ def are_you_sure(request, user_id):
     
 @login_required
 def delete_profile(request, user_id):
+    '''
+    Allows user to delete their profile and all relations
+    '''
     currentuser = request.user
     user = User.objects.get(id = user_id)
     reviews = Review.objects.all()
@@ -321,6 +362,9 @@ def delete_profile(request, user_id):
 
 @login_required
 def delete_dog(request, dog_id):
+    '''
+    Allows user to remove a specific dog from listings
+    '''
     currentuser = request.user
     dog = Dog.objects.get(id = dog_id)
     dog_rented = DogRental.objects.filter(dog_id = dog_id)
@@ -341,8 +385,26 @@ def delete_dog(request, dog_id):
 
 @login_required
 def delete_review(request, review_id):
+    '''
+    Allows user to delete their dog review
+    '''
     currentuser = request.user
     review = Review.objects.get(id = review_id)
     dog = review.dog_id
     review.delete()
     return HttpResponseRedirect(request.POST.get('next', f'/dog_detail/{dog}'))
+
+def search_results(request):
+    '''
+    Allows user to search for specific dog breed
+    '''
+    template_name = 'search/search_results.html'
+    dogs = Dog.objects.all()
+    breeds = Breed.objects.all()
+    query = request.GET.get('q', '')
+    if query:
+        # query example
+        results = Breed.objects.filter(name__icontains=query).distinct()
+    else:
+        results = []
+    return render(request, template_name, {'results': results, 'query': query, 'dogs': dogs, 'breeds': breeds})

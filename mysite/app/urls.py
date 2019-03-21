@@ -23,4 +23,5 @@ urlpatterns = [
     path('delete_profile/<int:user_id>', views.delete_profile, name='delete_profile'),
     path('delete_dog/<int:dog_id>', views.delete_dog, name='delete_dog'),
     path('delete_review/<int:review_id>', views.delete_review, name='delete_review'),
+    path('search_results/', views.search_results, name='search_results'),
 ]

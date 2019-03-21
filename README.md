@@ -184,6 +184,10 @@ Displays the information related to the logged in user. There the user will see 
 `http://localhost:8000/profile/`
 Displays the information related to the logged in user. There the user will see their current information that they registered with. Said user will be afforded the opporunity to edit their profile, change their password, or delete their profile, which in turn deletes all of their currently uploaded dogs, reviews made, and dogs rented.
 
+### Search
+`http://localhost:8000/`
+On any page, whether the user is logged in or not, you are afforded the opporunity to search the database for specific dog breeds. This will push you to a page that lists all results related to the query. For example, when searching "Corgi", it brings back results for both Cardigan and Pembroke Welsh Corgis!
+
 ### Logout
 Logs the currently logged in user out of the application and pushes them to the home page.
 

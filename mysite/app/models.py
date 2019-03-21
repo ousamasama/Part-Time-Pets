@@ -4,6 +4,9 @@ from datetime import datetime, date
 
 # Create your models here.
 class Breed(models.Model):
+    '''
+    A way of specifying what breed the dog is
+    '''
     name = models.CharField(max_length=100, blank=False)
 
     def __str__(self):
@@ -13,6 +16,9 @@ class Breed(models.Model):
         ordering = ('name',)
 
 class Dog(models.Model):
+    '''
+    A dog posted by a user
+    '''
     name = models.CharField(max_length=100, blank=False)
     description = models.CharField(max_length=200, blank=False)
     is_available = models.BooleanField(default=True)
@@ -24,10 +30,16 @@ class Dog(models.Model):
         ordering = ('name',)
 
 class DogRental(models.Model):
+    '''
+    A relationship between a user and a dog listed
+    '''
     renter = models.ForeignKey(User, on_delete=models.CASCADE)
     dog = models.ForeignKey(Dog,on_delete=models.CASCADE)
 
 class Review(models.Model):
+    '''
+    A relationship between a user and a dog listed
+    '''
     description = models.CharField(max_length=200, blank=False, default='')
     reviewer = models.ForeignKey(User, on_delete=models.CASCADE)
     dog = models.ForeignKey(Dog,on_delete=models.CASCADE)
