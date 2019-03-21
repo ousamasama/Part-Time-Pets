@@ -2,7 +2,6 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<h1>Register with Part Time Pets</h1>
 
 {% if registered %}
 <strong>Thank you for registering!</strong>
@@ -11,10 +10,14 @@
 
 <div class='card mb-3'>
         <div class='card-header'>
-                <div class='card-body' style='padding-top: 10px; padding-bottom: 10px;'>
+                <image style='border: 1px solid black; float: right;' src="/images/images/register.jpeg" height=450
+                        width=750></image>
+                <h1 class="card-header">Register with Part Time Pets</h1>
+                <div class='card-body' style='padding-top: 10px; padding-bottom: 0px;'>
                         <form id="user_form" method="POST" action="{% url 'app:register' %}">
                                 {% csrf_token %}
                                 {% crispy user_form %}
+                                <br />
                                 <input class="btn btn-success" type="submit" name="submit" value="Register" />
                         </form>
                 </div>

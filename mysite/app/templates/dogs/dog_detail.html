@@ -32,35 +32,32 @@
         </div>
     </div>
 </div>
-<h3>Reviews</h3>
-{% if not reviews %}
+
 <div>
-    <p>{{ dog_detail.name }} has no reviews!</p>
+    <ul style="list-style-type:none">
+        {% for review in reviews %}
+        {% if review.dog_id == dog_detail.id %}
+        <li>
+            <div class="card text-center">
+                <div class="card-header text-muted">
+                    {{ review.date }}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ review.reviewer|title }}</h5>
+                    <p class="card-text">{{ review.description }}</p>
+                </div>
+                {% if review.reviewer_id == user.id %}
+                <div class="card-footer text-muted">
+                    <a class="btn btn-danger" role="button" href="{% url 'app:delete_review' review.id %}">Delete
+                        Review</a>
+                </div>
+                {% endif %}
+            </div>
+            <br />
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
 </div>
-{% else %}
-<ul style="list-style-type:none">
-    {% for review in reviews %}
-    {% if review.dog_id == dog_detail.id %}
-    <li>
-        <div class="card text-center">
-            <div class="card-header text-muted">
-                {{ review.date }}
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">{{ review.reviewer|title }}</h5>
-                <p class="card-text">{{ review.description }}</p>
-            </div>
-            {% if review.reviewer_id == user.id %}
-            <div class="card-footer text-muted">
-                <a class="btn btn-danger" role="button" href="{% url 'app:delete_review' review.id %}">Delete Review</a>
-            </div>
-            {% endif %}
-        </div>
-        <br />
-    </li>
-    {% endif %}
-    {% endfor %}
-</ul>
-{% endif %}
 
 {% endblock content %}
