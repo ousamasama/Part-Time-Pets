@@ -10,7 +10,7 @@
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'app:index' %}">Home <span class="sr-only">(current)</span></a>
@@ -27,11 +27,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'app:profile' user.id %}">Profile</a>
             </li>
-            <form method="get" action="/search_results/" class="form-inline" style='margin-right: 400px; margin-left: 400px;'>
-                <input type="text" id="searchBox" class="form-control mr-sm-2" name="q" placeholder="Search Dog Breeds" required>
-                <input type="submit" class="btn btn-success my-2 my-sm-0" value="Search" >
-            </form>
         </ul>
+        <div class="collapse navbar-collapse justify-content-center">
+            <form method="get" action="/search_results/" class="form-inline">
+                <input type="text" id="searchBox" class="form-control mr-sm-2" name="q" placeholder="Search Dog Breeds"
+                    required>
+                <input type="submit" class="btn btn-success my-2 my-sm-0" value="Search">
+            </form>
+        </div>
         <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -48,7 +51,7 @@
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'app:index' %}">Home <span class="sr-only">(current)</span></a>
@@ -57,10 +60,13 @@
                 <a class="nav-link" href="{% url 'app:dogs' %}">Dogs <span class="sr-only">(current)</span></a>
             </li>
         </ul>
-        <form method="get" action="/search_results/" class="form-inline"  style='margin-right: 600px; margin-left: 600px;'>
-            <input type="text" id="searchBox" class="form-control mr-sm-2" name="q" placeholder="Search Dog Breeds" required>
-            <input type="submit" class="btn btn-success my-2 my-sm-0" value="Search" >
-        </form>
+        <div class="collapse navbar-collapse justify-content-center">
+            <form method="get" action="/search_results/" class="form-inline">
+                <input type="text" id="searchBox" class="form-control mr-sm-2" name="q" placeholder="Search Dog Breeds"
+                    required>
+                <input type="submit" class="btn btn-success my-2 my-sm-0" value="Search">
+            </form>
+        </div>
         <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
             <ul class="navbar-nav">
                 <li class="nav-item">

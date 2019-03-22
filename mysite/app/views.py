@@ -353,12 +353,14 @@ def delete_profile(request, user_id):
                 dog_rented.delete()
 
     for review in reviews:
-        review.delete()
+        if review.reviewer_id == currentuser.id:
+            review.delete()
 
     user.delete()
-    template_name = 'index.html'
+    logout(request)
+    request.session.flush()
     messages.success(request, "Profile deleted successfully!")
-    return render(request, template_name)
+    return HttpResponseRedirect('/')
 
 @login_required
 def delete_dog(request, dog_id):
