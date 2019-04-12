@@ -134,7 +134,7 @@ Django is a Python Web framework. This project uses Django and requires Python t
 
 [Django for Windows](https://docs.djangoproject.com/en/2.1/howto/windows/)
 
-# Installing Bangazon
+# Installing Part Time Pets
 
 As of now, the database is going to be hosted on your local computer. There are a few things you need to make sure are in place before the database can be up and running.
 
